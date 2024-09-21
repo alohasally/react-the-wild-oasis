@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const StyledLogo = styled.div`
   text-align: center;
+  margin-bottom: 2.2rem;
 `;
 
 const Img = styled.img`
