@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Dashboard from "./pages/Dashboard";
