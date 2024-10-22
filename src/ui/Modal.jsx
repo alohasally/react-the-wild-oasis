@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
@@ -51,9 +52,27 @@ const Button = styled.button`
 `;
 
 export default function Modal({ children, onClose }) {
+  const ref = useRef();
+  useEffect(function () {
+    function handleKey(e) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) onClose();
+    }
+    document.addEventListener("keydown", handleKey, true);
+    document.addEventListener("click", handleClick, true);
+    return () => {
+      document.removeEventListener("keydown", handleKey, true);
+      document.removeEventListener("click", handleClick, true);
+    };
+  }, []);
+
   return (
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={onClose}>
           <HiXMark />
         </Button>
