@@ -44,6 +44,14 @@ function CabinTable() {
   if (filterValue === "with-discount")
     filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
+  // 2) Sort
+  const sortBy = searchParams.get("sortBy") || "startDate-asc";
+  const [filed, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedCabins = filteredCabins.sort(
+    (a, b) => (a[filed] - b[filed]) * modifier
+  );
+
   return (
     <Table role="table">
       <TableHeader>
@@ -54,7 +62,7 @@ function CabinTable() {
         <div>Discount</div>
         <div></div>
       </TableHeader>
-      {filteredCabins.map((cabin) => (
+      {sortedCabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
     </Table>
