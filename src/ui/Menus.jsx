@@ -61,10 +61,10 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function Menus() {
+export default function Menus({ children }) {
   return (
     <>
-      <StyledMenu></StyledMenu>
+      <StyledMenu>{children}</StyledMenu>
     </>
   );
 }
