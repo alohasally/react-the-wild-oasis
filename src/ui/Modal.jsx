@@ -9,6 +9,7 @@ import {
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -82,23 +83,7 @@ function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
   if (name !== openName) return null;
 
-  const ref = useRef();
-  useEffect(function () {
-    function handleKey(e) {
-      if (e.key === "Escape") {
-        close();
-      }
-    }
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) close();
-    }
-    document.addEventListener("keydown", handleKey, true);
-    document.addEventListener("click", handleClick, true);
-    return () => {
-      document.removeEventListener("keydown", handleKey, true);
-      document.removeEventListener("click", handleClick, true);
-    };
-  }, []);
+  const ref = useOutsideClick(close);
 
   return createPortal(
     <Overlay>
